@@ -1,0 +1,107 @@
+import pprint
+import scipy
+import scipy.linalg  
+
+A = scipy.array([[12, -51, 4], [6, 167, -68], [-4, 24, -41]])  # From the Wikipedia Article on QR Decomposition
+Q, R = scipy.linalg.qr(A)
+
+print "A:"
+pprint.pprint(A)
+
+print "Q:"
+pprint.pprint(Q)
+
+print "R:"
+pprint.pprint(R)
+// Далее вводим даные 
+A:
+array([[ 12, -51,   4],
+       [  6, 167, -68],
+       [ -4,  24, -41]])
+Q:
+array([[ 0.85714286, -0.39428571, -0.33142857],
+       [ 0.42857143,  0.90285714,  0.03428571],
+       [-0.28571429,  0.17142857, -0.94285714]])
+R:
+array([[  14.,   21.,  -14.],
+       [  -0.,  175.,  -70.],
+       [   0.,   -0.,   35.]])//
+from math import sqrt
+from pprint import pprint
+
+def mult_matrix(M, N):
+    
+
+def trans_matrix(M):
+   
+    n = len(M)
+    return [[ M[i][j] for i in range(n)] for j in range(n)]
+
+def norm(x):
+   
+    return sqrt(sum([x_i**2 for x_i in x]))
+
+def Q_i(Q_min, i, j, k):
+
+    if i < k or j < k:
+        return float(i == j)
+    else:
+        return Q_min[i-k][j-k]
+
+def householder(A):
+    
+    n = len(A)
+
+ 
+    R = A
+    Q = [[0.0] * n for i in xrange(n)]
+
+   
+    for k in range(n-1):  
+                                                                    
+        I = [[float(i == j) for i in xrange(n)] for j in xrange(n)]
+
+     
+        x = [row[k] for row in R[k:]]
+        e = [row[k] for row in I[k:]]
+        alpha = -cmp(x[0],0) * norm(x)
+
+       
+        u = map(lambda p,q: p + alpha * q, x, e)
+        norm_u = norm(u)
+        v = map(lambda p: p/norm_u, u)
+
+        Q_min = [ [float(i==j) - 2.0 * v[i] * v[j] for i in xrange(n-k)] for j in xrange(n-k) ]
+        Q_t = [[ Q_i(Q_min,i,j,k) for i in xrange(n)] for j in xrange(n)]
+
+        if k == 0:
+            Q = Q_t
+            R = mult_matrix(Q_t,A)
+        else:
+            Q = mult_matrix(Q_t,Q)
+            R = mult_matrix(Q_t,R)
+
+    return trans_matrix(Q), R
+
+A = [[12, -51, 4], [6, 167, -68], [-4, 24, -41]]
+Q, R = householder(A)
+
+print "A:"
+pprint(A)
+
+print "Q:"
+pprint(Q)
+
+print "R:"
+pprint(R)
+//При выводе получаем 
+A:
+[[12, -51, 4], [6, 167, -68], [-4, 24, -41]]
+Q:
+[[0.8571428571428571, 0.39428571428571435, -0.33142857142857135],
+ [0.4285714285714286, -0.9028571428571429, 0.034285714285714114],
+ [-0.28571428571428575, -0.17142857142857126, -0.942857142857143]]
+R:
+[[13.999999999999998, 21.00000000000001, -14.000000000000004],
+ [-5.506706202140776e-16, -175.00000000000003, 70.0],
+ [3.0198066269804245e-16, -3.552713678800501e-14, 35.000000000000014]]//
