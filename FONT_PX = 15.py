@@ -1,3 +1,4 @@
+#Реализация заставки из фильма "Матрица"
 import pygame
 import random
 FONT_PX = 15
