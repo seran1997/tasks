@@ -8,7 +8,6 @@ bg_suface = pygame.Surface((1240, 1488), flags=pygame.SRCALPHA)
 pygame.Surface.convert(bg_suface)
 bg_suface.fill(pygame.Color(0, 0, 0, 13))
 winSur.fill((0, 0, 0))
-# 数字
 texts = [font.render(str(i), True, (0, 255, 0)) for i in range(10)]
 colums = int(1240 / FONT_PX)
 drops = [0 for i in range(colums)]
